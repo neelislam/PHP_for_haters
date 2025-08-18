@@ -9,6 +9,7 @@ print_r($arr);
 echo "</pre>";
 
 echo "<h3>Array \$arr1:</h3>";
+echo "<h3>Result of sort(\$numericArr):</h3>";
 echo "<pre>";
 print_r($arr1);
 echo "</pre>";
@@ -55,4 +56,21 @@ echo "</pre>";
 
 echo "<h3>Popped value:</h3>";
 echo $poppedValue;
+
+//search in array
+echo "<h2>Check if Value Exists in Array</h2>";
+$needle = 3;
+echo "Does \$arr contain $needle? " . (in_array($needle, $arr) ? "Yes" : "No") . "<br>";
+
+//custom key array
+echo "<h3>Custom key array<h3>";
+$arraynew= array(1=>'acl1', 2=>'acl2', 3=>'acl3');
+
+foreach($arraynew as $key => $value) {
+    echo "Key: $key, Value: $value<br>";
+
+}
+
+
+
 ?>
