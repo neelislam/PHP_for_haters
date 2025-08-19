@@ -11,7 +11,7 @@ session_start();
 // You can create or modify session variables by adding key-value pairs
 // to the $_SESSION superglobal array.
 // The array works just like any other associative array in PHP.
-$_SESSION['name'] = 'John Doe';
+$_SESSION['name'] = 'Neel Shaheb';
 $_SESSION['user_id'] = 123;
 $_SESSION['is_logged_in'] = true;
 
