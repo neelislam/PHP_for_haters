@@ -9,7 +9,7 @@ include('includes/navbar.php');
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <?php if(isset($_SESSION['status'])): ?>
+                <?php if(isset($_SESSION['status'])): ?> 
                     <div class="alert alert-info"><?php echo $_SESSION['status']; unset($_SESSION['status']); ?></div>
                 <?php endif; ?>
                 <div class="card">

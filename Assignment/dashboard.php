@@ -11,7 +11,7 @@ include('includes/header.php');
 include('includes/navbar.php');
 
 function visitCount(){
-    static $count = 0; // static variable
+    static $count = 0; 
     $count++;
     return $count;
 }

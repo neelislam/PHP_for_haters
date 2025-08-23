@@ -4,5 +4,23 @@
         "phone": "01872224764",
         "email": "rabiul17.ri@gmail.com",
         "password": "$2y$10$qg\/B63rWASgpp3B7Vvl5ne9ZXZDCysGpjNs.ErO9dQ\/4lg2t7IYU."
+    },
+    {
+        "name": "Tahin Yahsina",
+        "phone": "01972420743",
+        "email": "tahin@yoyo.com",
+        "password": "$2y$10$ZVjbzXntCAmz2BDc9kdz5.NwWAon8zX9cMqwc3D6cfS9cafP24mjq"
+    },
+    {
+        "name": "Bishal Chodna Modak",
+        "phone": "01872224764",
+        "email": "bishal@gmail.com",
+        "password": "$2y$10$mX7xLBIwfWjT7lQhjXpdXesreALHHreWmo0RahGjCuZCcyQEivkHm"
+    },
+    {
+        "name": "Bishal",
+        "phone": "01872224",
+        "email": "bish@gmail.com",
+        "password": "12345"
     }
 ]

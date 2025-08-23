@@ -15,7 +15,7 @@ if(isset($_POST['login_btn'])){
     $users = json_decode(file_get_contents($file), true);
 
     foreach($users as $u){
-        if($u['email'] === $email && password_verify($password, $u['password'])){
+        if($u['email'] == $email && ($password == $u['password'])){
             $_SESSION['auth'] = true;
             $_SESSION['auth_user'] = $u;
             $_SESSION['status'] = "Login successful!";
