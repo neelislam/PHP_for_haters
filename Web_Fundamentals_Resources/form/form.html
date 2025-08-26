@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="formvalidation.js"></script>
+    <title>Form</title>
+    <style>
+        form{
+            background-color: #f8f7f7;
+            padding : 50px;
+            box-shadow: 0px 0px 10px 0px;
+            border-radius: 10px;
+            justify-content: center;
+            display: flex;
+            margin: 20px 300px 50px 300px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: gray;
+        }
+        h1{
+            text-align: center;
+        }
+        span{
+          color: red;
+        }
+       
+    </style>
+  </head>
+  <body>
+  
+    <h1>Register Here</h1>
+    <form action="#" method="post" onsubmit="return form()">
+      <table>
+        <tr>
+          <td>
+            <label for="fname">First Name:</label>
+          </td>
+          <td><input type="text" name="fname" id="ifname" />
+          <span id="efname"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="lname">Last Name:</label>
+          </td>
+          <td><input type="text" name="lname" id="ilname" />
+            <span id="elname"></span></td>
+        </tr>
+        <tr>
+            <td>
+              <label for="email">Email:</label>
+            </td>
+            <td><input type="email" name="email" id="iemail" />
+              <span id="eemail"></span></td>
+          </tr>
+          <tr>
+            <td>
+              <label for="mobile">Mobile:</label>
+            </td>
+            <td><input type="text" name="mob" id="imob" />
+              <span id="emob"></span></td>
+          </tr>
+         <tr>
+            <td>
+              <label for="pass">Password:</label>
+            </td>
+            <td><input type="password" name="pass" id="ipass" />
+              <span id="epass"></span>
+            </td>
+          </tr>
+           <!-- <tr>
+            <td>
+              <label for="cpass">Confirm Password:</label>
+            </td>
+            <td><input type="password" name="cpass" id="icpass" />
+              <span id="ecpass"></span></td>
+          </tr>  -->
+          <!-- <tr>
+            <td><label for="certificate">Certificate:</label></td>
+            <td><input type="checkbox" name="cbox" id="psc" value="PSC">
+                <label>PSC</label>
+                <input type="checkbox" name="cbox" id="jsc" value="JSC">
+                <label>JSC</label>
+                <input type="checkbox" name="cbox" id="ssc" value="SSC">
+                <label>SSC</label>
+                <input type="checkbox" name="cbox" id="hsc" value="HSC">
+                <label>HSC</label>
+            </td>
+          </tr> -->
+          <!-- <tr>
+            <td>
+                <label for="gender">Gender:</label>
+            </td>
+            <td><input type="radio" name="gender" value="male">
+            <label>Male</label>
+            <input type="radio" name="gender" value="female">
+            <label>Female</label>
+            <input type="radio" name="gender" value="other">
+            <label>Other</label></td>
+          </tr> -->
+          <!-- <tr>
+            <td><label for="board">Board:</label>
+            <td><select name="board" id="board">
+                <option value="choose">Choose Board:</option>
+                <option value="sylhet">Sylhet</option>
+                <option value="dhaka">Dhaka</option>
+                <option value="cumilla">Cumilla</option>
+            </select>
+        </td>
+    </td>
+          </tr> -->
+          <!-- <tr><td><label for="dob">Date of Birth:</label>
+        <td><input type="date" name="dob" id="idob"></td></td></tr>
+        <tr>
+            <td><label for="photo">Upload Photo:</label></td>
+            <td><input type="file" ></td>
+        </tr> -->
+        <tr><td><input type="submit" name="" id="btn"></td></tr>
+      </table>
+    </form>
+  </body>
+</html>
