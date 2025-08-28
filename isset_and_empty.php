@@ -5,15 +5,11 @@ $username = "Titanium Dioxide";
 echo isset($username);
 
 
-$user = "";
+$user = null;
 
 echo isset($user);
 
 
-
-$name = "Titanium Dioxide";
-
-echo isset($name);
 
 echo"<br>";
 if(isset($username)){
@@ -21,4 +17,64 @@ if(isset($username)){
 } else {
     echo "This variable is not set";
 }
+echo"<br>";
+if(isset($name)){
+    echo"This variable is set";
+} else {
+    echo "This variable is not set";
+}
+echo"<br>";
+if(isset($user)){
+    echo"This variable is set";
+} else {
+    echo "This variable is not set";
+}
+echo"<br>";
+
+//empty
+
+
+
+
+$username2 = "Titanium Dioxide";
+
+echo isset($username2);
+
+
+$user2 = null;
+$user3 = false;
+$user4 = "";
+
+
+
+
+echo isset($user2);
+echo"<br>";
+if(isset($name4)){
+    echo"This variable is set";
+} else {
+    echo "This variable is not set";
+}
+
+
+echo"<br>";
+if(isset($username2)){
+    echo"This variable is set";
+} else {
+    echo "This variable is not set";
+}
+echo"<br>";
+if(isset($name2)){
+    echo"This variable is set";
+} else {
+    echo "This variable is not set";
+}
+echo"<br>";
+if(isset($user3)){
+    echo"This variable is set";
+} else {
+    echo "This variable is not set";
+}
+echo"<br>";
+
 ?>
