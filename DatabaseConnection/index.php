@@ -1,22 +1,23 @@
 <?php
  include("database.php");
 
- $username = "Captain America";
- $password = "America123";
 
- $sql = "INSERT INTO users (user, password)
- VALUES ('$username', '$password')";
+ $sql = "SELECT * FROM users WHERE user = 'Thanos' ";
 
-try{
-mysqli_query($conn, $sql);
-echo "Added to database";
 
+$result = mysqli_query($conn, $sql);
+
+
+if(mysqli_num_rows($result) > 0){
+    $row = mysqli_fetch_assoc($result);
+    echo $row["id"] . "<br>";
+    echo $row["user"] . "<br>";
+    echo $row["reg_date"] . "<br>";
+    echo $row["password"] . "<br>";
 }
-catch(mysqli_sql_exception){
-    echo "Could not add to database";
-}
 
- mysqli_close($conn);
+
+ mysqli_close($conn)
 ?>
 
 
