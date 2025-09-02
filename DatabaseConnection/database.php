@@ -2,7 +2,7 @@
 $db_server = "127.0.0.1";
 $db_user = "root";
 $db_pass = "";
-$db_name = "businessdb";
+$db_name = "perfomance1";
 $conn = "";
 $port       = 4306;
 
