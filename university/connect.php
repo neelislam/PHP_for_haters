@@ -2,7 +2,7 @@
 $db_server = "127.0.0.1";
 $db_user   = "root";
 $db_pass   = "";
-$db_name   = "arektadatabase";
+$db_name   = "university";
 $port      = 4306;
 
 $conn = mysqli_connect(
@@ -15,5 +15,10 @@ $conn = mysqli_connect(
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
+} else {
+    echo "Connected Succesfully";
+
 }
+
+
 ?>
