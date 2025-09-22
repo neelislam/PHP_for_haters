@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (move_uploaded_file($_FILES["picture"]["tmp_name"], $targetFilePath)) {
                 $picture = $targetFilePath;
             } else {
-                $errorMessage = "❌ Error uploading picture.";
+                $errorMessage = "Error uploading picture.";
             }
         } else {
             $errorMessage = "⚠ Only JPG, JPEG, PNG, GIF allowed.";
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $checkStmt->store_result();
 
         if ($checkStmt->num_rows > 0) {
-            $errorMessage = "❌ Client with this email or phone already exists!";
+            $errorMessage = "Client with this email or phone already exists!";
         } else {
             // Insert new client
             $sql = "INSERT INTO clients (name, email, phone, address, picture) VALUES (?, ?, ?, ?, ?)";
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: index.php?success=1");
                 exit;
             } else {
-                $errorMessage = "❌ Error: " . $connection->error;
+                $errorMessage = "Error: " . $connection->error;
             }
         }
         $checkStmt->close();
