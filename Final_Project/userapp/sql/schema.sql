@@ -1,0 +1,37 @@
+-- Create DB
+CREATE DATABASE IF NOT EXISTS userapp_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE userapp_db;
+
+-- Users table
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  full_name VARCHAR(100) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  bio TEXT,
+  is_verified TINYINT(1) DEFAULT 0,
+  verification_token VARCHAR(64) DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  last_login TIMESTAMP NULL
+);
+
+-- Password reset tokens
+CREATE TABLE IF NOT EXISTS password_resets (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  token VARCHAR(64) NOT NULL,
+  expires_at DATETIME NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Login history
+CREATE TABLE IF NOT EXISTS login_history (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  ip_address VARCHAR(45),
+  user_agent VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

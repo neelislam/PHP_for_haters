@@ -1,0 +1,6 @@
+/* style.css */
+body.dark-mode {
+  background: #121212;
+  color: #eee;
+}
+.card { transition: box-shadow .15s; }
