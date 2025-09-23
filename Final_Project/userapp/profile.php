@@ -1,37 +1,52 @@
 <?php
-require_once 'functions.php';
-if (!is_logged_in()) {
-    header('Location: login.php'); exit;
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
 }
-$user = current_user();
+
+require_once 'functions.php'; // to use $pdo
+
+// Fetch latest user info from DB (in case updated)
+global $pdo;
+$stmt = $pdo->prepare("SELECT id, full_name, email FROM users WHERE id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$user = $stmt->fetch();
+
+if (!$user) {
+    // If somehow user not found in DB (deleted), logout
+    header("Location: logout.php");
+    exit;
+}
 ?>
-<!doctype html>
-<html><head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Profile - UserApp</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-</head><body>
-<div class="container py-4">
-  <div class="d-flex justify-content-between">
-    <h2>Welcome, <?php echo htmlspecialchars($user['full_name']); ?></h2>
-    <div>
-      <a href="history.php" class="btn btn-sm btn-outline-primary">Login History</a>
-      <a href="logout.php" class="btn btn-sm btn-outline-secondary">Logout</a>
-    </div>
-  </div>
-  <div class="card mt-3">
-    <div class="card-body">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Profile</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f9f9f9; margin:0; padding:0; }
+    .container { max-width:600px; margin:50px auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
+    nav a { margin-right:15px; text-decoration:none; color:#007bff; }
+    h2 { color:#333; }
+    .info { margin:20px 0; }
+    .info p { font-size:16px; margin:8px 0; }
+    .logout { float:right; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="dashboard.php">Dashboard</a>
+      <a href="logout.php" class="logout">Logout</a>
+    </nav>
+
+    <h2>My Profile</h2>
+    <div class="info">
+      <p><strong>User ID:</strong> <?php echo htmlspecialchars($user['id']); ?></p>
+      <p><strong>Full Name:</strong> <?php echo htmlspecialchars($user['full_name']); ?></p>
       <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-      <p><strong>Bio:</strong> <?php echo nl2br(htmlspecialchars($user['bio'])); ?></p>
-      <p><strong>Joined:</strong> <?php echo $user['created_at']; ?></p>
-      <p><strong>Last login:</strong> <?php echo $user['last_login']; ?></p>
-
-      <a href="edit_profile.php" class="btn btn-primary">Edit Profile</a>
-      <a href="delete_account.php" class="btn btn-danger" onclick="return confirm('Delete account? This cannot be undone.');">Delete Account</a>
     </div>
   </div>
-</div>
-
-<script src="assets/js/main.js"></script>
-</body></html>
+</body>
+</html>

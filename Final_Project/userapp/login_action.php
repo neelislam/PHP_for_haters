@@ -21,7 +21,7 @@ if (!$email || !$password) {
 global $pdo;
 
 // Fetch user by email
-$stmt = $pdo->prepare("SELECT id, full_name, password, is_verified FROM users WHERE email = ?");
+$stmt = $pdo->prepare("SELECT id, full_name, email, password, is_verified FROM users WHERE email = ?");
 $stmt->execute([$email]);
 $user = $stmt->fetch();
 
@@ -45,9 +45,12 @@ if (!$user['is_verified']) {
     exit;
 }
 
-// Login successful
-$_SESSION['user_id'] = $user['id'];
+// ✅ Login successful → save user info in session
+$_SESSION['user_id']    = $user['id'];
+$_SESSION['full_name']  = $user['full_name'];
+$_SESSION['email']      = $user['email'];
 
-// Redirect to a pretty login success page
-header('Location: login_result.php');
+// Redirect to dashboard
+header('Location: dashboard.php');
 exit;
+?>
