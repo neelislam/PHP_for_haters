@@ -1,22 +1,32 @@
 <?php
+session_start();
 require_once 'functions.php';
-if (!is_logged_in()) { header('Location: login.php'); exit; }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user_id = $_SESSION['user_id'];
-    // Delete user row (cascades will remove related password_resets & login_history)
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$user_id = $_SESSION['user_id'];
+global $pdo;
+
+try {
+    // Delete the user from DB
     $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
     $stmt->execute([$user_id]);
+
+    // Clear session
     session_unset();
     session_destroy();
-    echo "Account deleted. <a href='register.php'>Register</a>";
+
+    // Redirect with success message
+    session_start();
+    flash('success', 'Your account has been deleted successfully.');
+    header("Location: register.php"); // back to registration page
+    exit;
+} catch (Exception $e) {
+    flash('error', 'Failed to delete account. Please try again.');
+    header("Location: profile.php");
     exit;
 }
 ?>
-<!doctype html><html><body>
-<form method="post">
-  <p>Are you sure you want to delete your account? This action is irreversible.</p>
-  <button type="submit">Yes, delete my account</button>
-  <a href="profile.php">Cancel</a>
-</form>
-</body></html>

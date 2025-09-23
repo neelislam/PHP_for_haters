@@ -4,7 +4,7 @@
 date_default_timezone_set('Asia/Dhaka'); // your timezone
 
 // Database settings
-define('DB_HOST', '127.0.0.1:3308'); 
+define('DB_HOST', '127.0.0.1:3306'); 
 define('DB_NAME', 'user_management');
 define('DB_USER', 'root');
 define('DB_PASS', '');

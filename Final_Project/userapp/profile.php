@@ -47,6 +47,10 @@ if (!$user) {
       <p><strong>Full Name:</strong> <?php echo htmlspecialchars($user['full_name']); ?></p>
       <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
     </div>
+    <form method="post" action="delete_account.php" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+  <button type="submit" style="background:#dc3545; color:#fff; padding:10px 15px; border:none; border-radius:5px; cursor:pointer;">Delete Account</button>
+</form>
+
   </div>
 </body>
 </html>

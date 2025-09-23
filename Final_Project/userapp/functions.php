@@ -1,16 +1,22 @@
 <?php
 // functions.php
-require_once __DIR__ . '/config.php';
+session_start(); // start session for flash messages and login
 
-// If you will use PHPMailer (recommended), ensure Composer autoload is available:
+require_once __DIR__ . '/config.php'; // include your DB & constants
+
+// Composer autoload for PHPMailer
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
-} else {
-    // If vendor not present, you can still use PHP mail() as a fallback (less reliable)
 }
 
 /**
- * Send email using PHPMailer (preferred).
+ * Send email using PHPMailer
+ *
+ * @param string $to
+ * @param string $subject
+ * @param string $bodyHtml
+ * @param string $bodyPlain
+ * @return bool
  */
 function send_email($to, $subject, $bodyHtml, $bodyPlain = '') {
     if (class_exists('PHPMailer\PHPMailer\PHPMailer')) {
@@ -31,17 +37,13 @@ function send_email($to, $subject, $bodyHtml, $bodyPlain = '') {
             $mail->Body = $bodyHtml;
             $mail->AltBody = $bodyPlain ?: strip_tags($bodyHtml);
 
-            $mail->SMTPDebug = 2; // ⚡ show detailed debug info
-            $mail->Debugoutput = 'html';
-
-            $mail->send();
-            return true;
-        } catch (Exception $e) {
-            echo "Mailer Error: " . $mail->ErrorInfo; // ⚡ show error
+            return $mail->send();
+        } catch (PHPMailer\PHPMailer\Exception $e) {
+            flash('error', "Mailer Error: " . $mail->ErrorInfo);
             return false;
         }
     } else {
-        // fallback
+        // fallback to PHP mail()
         $headers  = "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html; charset=utf-8\r\n";
         $headers .= "From: " . MAIL_FROM_NAME . " <" . MAIL_FROM . ">\r\n";
@@ -49,37 +51,57 @@ function send_email($to, $subject, $bodyHtml, $bodyPlain = '') {
     }
 }
 
+/**
+ * Flash messaging helper
+ *
+ * Usage:
+ * flash('key', 'message'); // set
+ * $msg = flash('key'); // get & remove
+ */
+function flash($key, $message = null) {
+    if (!isset($_SESSION['flash'])) {
+        $_SESSION['flash'] = [];
+    }
+
+    if ($message === null) {
+        if (!empty($_SESSION['flash'][$key])) {
+            $msg = $_SESSION['flash'][$key];
+            unset($_SESSION['flash'][$key]);
+            return $msg;
+        }
+        return null;
+    } else {
+        $_SESSION['flash'][$key] = $message;
+    }
+}
 
 /**
- * Simple helper to check login
+ * Check if user is logged in
+ *
+ * @return bool
  */
 function is_logged_in() {
     return isset($_SESSION['user_id']);
 }
 
 /**
- * Get current user data (returns assoc or null)
+ * Get current logged-in user data
+ *
+ * @return array|null
  */
 function current_user() {
     global $pdo;
     if (!is_logged_in()) return null;
-    $stmt = $pdo->prepare("SELECT id, full_name, email, bio, is_verified, created_at, last_login FROM users WHERE id = ?");
+
+    $stmt = $pdo->prepare("SELECT id, full_name, email, is_verified, created_at FROM users WHERE id = ?");
     $stmt->execute([$_SESSION['user_id']]);
-    return $stmt->fetch();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 /**
- * Simple flash messaging
+ * Redirect helper
  */
-function flash($key, $message = null) {
-    if ($message === null) {
-        if (!empty($_SESSION['flash'][$key])) {
-            $m = $_SESSION['flash'][$key];
-            unset($_SESSION['flash'][$key]);
-            return $m;
-        }
-        return null;
-    } else {
-        $_SESSION['flash'][$key] = $message;
-    }
+function redirect($url) {
+    header("Location: $url");
+    exit;
 }
